@@ -21,7 +21,7 @@ export default function AboutSection() {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-[#001219] via-[#001824] to-[#002030] text-white py-24">
+    <section className="right-10 relative w-screen px-4 h-screen bg-gradient-to-br from-[#001219] via-[#001824] to-[#002030] text-white py-24">
       {/* Background Effects */}
       <motion.div
         animate={{
@@ -34,7 +34,7 @@ export default function AboutSection() {
           repeatType: "reverse",
           ease: "easeInOut",
         }}
-        className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-radial from-[#40E0D0]/20 to-transparent rounded-full blur-[120px]"
+        className="absolute top-0 right-0 w-full h-full bg-gradient-radial from-[#40E0D0]/20 to-transparent rounded-full blur-[120px]"
       />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-16 relative z-10">
@@ -47,7 +47,7 @@ export default function AboutSection() {
           {/* Image Section */}
           <motion.div
             variants={itemVariants}
-            className="relative group"
+            className="relative group right-4"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-[#40E0D0]/20 to-[#2CB5A8]/20 rounded-2xl transform -rotate-6 scale-105 transition-transform duration-300 group-hover:scale-110" />
             <motion.div

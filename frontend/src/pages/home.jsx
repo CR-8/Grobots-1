@@ -1,19 +1,21 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import Hero from '../components/hero'
-import Hero_video from '../components/hero_video'
-import Marquee from '../components/marquee'
-import About from '../components/AboutSection'
-import ContactForm from '../components/ContactForm'
-import Footer from '../components/Footer'
-
+import React from "react";
+import { motion } from "framer-motion";
+import Hero from "../components/hero";
+import Hero_video from "../components/hero_video";
+import Marquee from "../components/marquee";
+import About from "../components/AboutSection";
+import ContactForm from "../components/ContactForm";
+import Footer from "../components/Footer";
+import LocomotiveScroll from "locomotive-scroll";
 const fadeInUp = {
   initial: { y: 20, opacity: 0 },
   animate: { y: 0, opacity: 1 },
-  transition: { duration: 0.5, ease: "easeOut" }
-}
+  transition: { duration: 0.5, ease: "easeOut" },
+};
 
 export default function Home() {
+  const locomotiveScroll = new LocomotiveScroll();
+
   return (
     <motion.div
       initial="initial"
@@ -31,23 +33,20 @@ export default function Home() {
           <About />
         </div>
       </section>
-
-
-      {/* Team Section */}
-      <section className="relative h-screen w-screen bg-gradient-to-b from-dark-900/50 to-dark-900">
+      {/* Team section */}
+      <section className="relative pt-16 h-screen w-screen bg-gradient-to-b from-[#011D2A] to-[#4b849f]">
         <div className="container-padding">
           <motion.div
             variants={fadeInUp}
             className="max-w-2xl mx-auto text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Meet Our{' '}
-              <span className="animate-gradient-text">
-                Exceptional Team
-              </span>
+              Meet Our{" "}
+              <span className="animate-gradient-text">Exceptional Team</span>
             </h2>
             <p className="text-lg text-gray-300">
-              Passionate individuals driving innovation and excellence in robotics and technology
+              Passionate individuals driving innovation and excellence in
+              robotics and technology
             </p>
           </motion.div>
         </div>
@@ -70,5 +69,5 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary-500/20 to-transparent" />
       </div>
     </motion.div>
-  )
+  );
 }

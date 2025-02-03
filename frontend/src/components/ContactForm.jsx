@@ -43,7 +43,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-[#001219] via-[#001824] to-[#002030] text-white py-24">
+    <section className="relative pb-8 bg-gradient-to-br from-[#001219] via-[#001824] to-[#002030] text-white right-10 h-screen w-screen">
       {/* Background Effects */}
       <motion.div
         animate={{
@@ -56,7 +56,7 @@ export default function ContactForm() {
           repeatType: "reverse",
           ease: "easeInOut",
         }}
-        className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-radial from-[#40E0D0]/20 to-transparent rounded-full blur-[120px]"
+        className="absolute top-0 right-0 w-screen h-screen bg-gradient-radial from-[#40E0D0]/20 to-transparent rounded-full blur-[120px]"
       />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-16 relative z-10">
@@ -67,10 +67,10 @@ export default function ContactForm() {
           className="max-w-4xl mx-auto"
         >
           {/* Section Header */}
-          <div className="text-center mb-12">
+          <div className="text-center  mt-12- mb-16">
             <motion.h2
               variants={itemVariants}
-              className="text-4xl sm:text-5xl font-light mb-6 text-gray-400"
+              className="text-4xl sm:text-5xl pt-20 font-light mb-6 text-gray-400"
             >
               Get in{" "}
               <motion.span
