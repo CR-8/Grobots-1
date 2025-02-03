@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import SmoothScroll from './components/SmoothScroll';
 import { motion, AnimatePresence } from 'framer-motion'
 import AppRouter from './router'
+import Home from './pages/home'
 
 export default function App() {
   return (
@@ -16,7 +17,7 @@ export default function App() {
             className="min-h-screen bg-gradient-to-b from-white to-gray-50"
           >
             <div className="relative z-10">
-              <AppRouter />
+              <Home />
             </div>
 
             {/* Background Decorative Elements */}
