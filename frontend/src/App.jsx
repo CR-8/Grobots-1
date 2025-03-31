@@ -3,7 +3,7 @@ import Home from './pages/home.jsx';
 import About from './pages/About.jsx';
 import Team from './pages/Team.jsx';
 import { motion } from 'framer-motion';
-import Navigation from './components/Navigation.jsx';
+import Navigation from '../src/components/Navigation.jsx';
 
 function App() {
   return (
