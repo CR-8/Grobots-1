@@ -1,6 +1,4 @@
-import React from "react";
 import { motion } from "framer-motion";
-// import Hero_video from "./hero_video";
 
 export default function Hero() {
   const containerVariants = {
@@ -66,7 +64,7 @@ export default function Hero() {
               whileHover={{ scale: 1.02 }}
             >
               <p className="text-lg sm:text-xl text-primary-200 leading-relaxed">
-                We're a community of creators and tech enthusiasts, pushing the limits of robotics and automation to
+                We are a community of creators and tech enthusiasts, pushing the limits of robotics and automation to
                 inspire and empower innovation for the future.
               </p>
             </motion.div>
