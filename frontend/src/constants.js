@@ -7,12 +7,12 @@ export const teamMembers = [
         domain: ["Robotics", "AI/ML"],
         currentStatus: {
             employed: true,
-            company: "Microsoft",
-            designation: "SDE-2"
+            company: "Paytm",
+            designation: "Dev-Ops Engineeer"
         },
         education: {
             degree: "B.Tech",
-            branch: "Computer Science",
+            branch: "Information Technology",
             graduationYear: 2023
         },
         bio: "Passionate about robotics and engineering.",

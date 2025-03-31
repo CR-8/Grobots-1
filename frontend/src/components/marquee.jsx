@@ -5,8 +5,8 @@ const TeamMarquee = () => {
     return (
         <div className="relative w-full overflow-hidden py-4">
             {/* Gradient Masks */}
-            <div className="absolute left-0 top-0 z-10 h-full w-[100px] bg-gradient-to-r from-white to-transparent" />
-            <div className="absolute right-0 top-0 z-10 h-full w-[100px] bg-gradient-to-l from-white to-transparent" />
+            <div className="absolute left-0 top-0 z-10 h-full w-[100px] bg-gradient-to-r from-primary-900 to-transparent" />
+            <div className="absolute right-0 top-0 z-10 h-full w-[100px] bg-gradient-to-l from-primary-900 to-transparent" />
             
             {/* Main marquee container */}
             <div className="flex gap-4 hover:pause-animation">
