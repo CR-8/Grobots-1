@@ -1,8 +1,8 @@
-import Hero from "../components/Hero.jsx";
-import TeamSection from "../components/TeamSection.jsx";
+import Hero from "../components/hero.jsx";
+import TeamSection from "../components/teamSection.jsx";
 // import ContactForm from "../components/ContactForm";
-import Footer from "../components/Footer.jsx";
-import IntroSection from "../components/Club-intro.jsx";
+import Footer from "../components/footer.jsx";
+import IntroSection from "../components/club-intro.jsx";
 
 export default function Home() {
   return (

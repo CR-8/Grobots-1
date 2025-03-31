@@ -83,7 +83,7 @@ export default function About() {
           >
             <motion.h1
               variants={itemVariants}
-              className="text-4xl text-primary-200 sm:text-5xl lg:text-6xl font-light mb-6"
+              className="text-4xl  sm:text-5xl lg:text-6xl font-light mb-6"
             >
               About{" "}
               <motion.span

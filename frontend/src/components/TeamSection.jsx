@@ -1,4 +1,4 @@
-import Marquee from "./Marquee";
+import Marquee from "./marquee";
 import { motion } from "framer-motion";
 
 export default function TeamSection() {
