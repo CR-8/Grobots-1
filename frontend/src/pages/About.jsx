@@ -124,10 +124,10 @@ export default function About() {
                 Our Mission
               </h2>
               <p className="text-lg text-primary-300 leading-relaxed">
-                At Grobots, we're on a mission to democratize robotics education and innovation. We believe that everyone should have access to the tools and knowledge needed to create the future of automation.
+                At Grobots, We are on a mission to democratize robotics education and innovation. We believe that everyone should have access to the tools and knowledge needed to create the future of automation.
               </p>
               <p className="text-lg text-primary-300 leading-relaxed">
-                Through our comprehensive programs, hands-on workshops, and competitive events, we're building a community of problem-solvers who will shape the future of technology.
+                Through our comprehensive programs, hands-on workshops, and competitive events, we are building a community of problem-solvers who will shape the future of technology.
               </p>
             </motion.div>
             <motion.div
