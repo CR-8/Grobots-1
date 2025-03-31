@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home.jsx';
 import About from './pages/About.jsx';
-import Team from './pages/team.jsx';
+import Team from './pages/Team.jsx';
 import { motion } from 'framer-motion';
 import Navigation from './components/navigation.jsx';
 
