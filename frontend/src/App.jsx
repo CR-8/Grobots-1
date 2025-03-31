@@ -2,6 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home.jsx';
 import About from './pages/About.jsx';
 import Team from './pages/Team.jsx';
+import Blog from './pages/Blog.jsx';
+import Reader from './pages/reader.jsx';
+import Contact from './pages/Contact.jsx';
 import { motion } from 'framer-motion';
 import Navigation from '../src/components/Navigation.jsx';
 
@@ -115,6 +118,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/team" element={<Team />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<Reader />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
       </div>

@@ -28,7 +28,7 @@ export default function Navigation() {
           { name: "About Us", path: "/about" },
           { name: "Team", path: "/team" },
           { name: "Projects", path: "/projects" },
-          { name: "Contact Us", path: "/contact" },
+          { name: "Blogs", path: "/blog" },
         ].map((item, index) => (
           <motion.div
             key={item.name}
@@ -52,20 +52,22 @@ export default function Navigation() {
       </div>
 
       <div className="flex gap-4">
-        {["Get Started", "Let's Talk"].map((text, index) => (
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-primary-50 text-primary-900 hover:bg-primary-100 px-4 sm:px-8 py-2 sm:py-3 rounded-lg text-sm font-medium transition-all duration-300"
+        >
+          Get Started
+        </motion.button>
+        <Link to="/contact">
           <motion.button
-            key={text}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`${
-              index === 0
-                ? "bg-primary-50 text-primary-900 hover:bg-primary-100"
-                : "border border-primary-300 hover:border-primary-50/40 hover:bg-primary-800/20 text-primary-300"
-            } px-4 sm:px-8 py-2 sm:py-3 rounded-lg text-sm font-medium transition-all duration-300`}
+            className="border border-primary-300 hover:border-primary-50/40 hover:bg-primary-800/20 text-primary-300 px-4 sm:px-8 py-2 sm:py-3 rounded-lg text-sm font-medium transition-all duration-300"
           >
-            {text}
+            Let&apos;s Talk
           </motion.button>
-        ))}
+        </Link>
       </div>
       
     </motion.nav>
