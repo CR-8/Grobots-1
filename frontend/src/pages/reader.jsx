@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
-import { useParams, Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { 
   Calendar, Clock, ArrowLeft, Twitter, Facebook, Linkedin, 
-  MoreHorizontal, ThumbsUp, MessageCircle, BookmarkPlus
+  MoreHorizontal, ThumbsUp, MessageCircle, BookmarkPlus,
+  Share2, Eye, BookOpen, ChevronUp, ChevronDown
 } from "lucide-react";
 import PropTypes from 'prop-types';
 
@@ -124,11 +125,116 @@ const SocialShare = () => (
   </div>
 );
 
+const TableOfContents = ({ headings }) => {
+  const [isExpanded, setIsExpanded] = useState(true);
+  const location = useLocation();
+
+  const scrollToHeading = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.5 }}
+      className="mt-16 p-6 bg-primary-800/30 rounded-xl border border-primary-300/10"
+    >
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-xl font-semibold text-primary-50">Table of Contents</h3>
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="p-2 hover:bg-primary-800/50 rounded-full transition-colors"
+        >
+          {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+        </button>
+      </div>
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.ul
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="space-y-2"
+          >
+            {headings.map((heading) => (
+              <li key={heading.id}>
+                <button
+                  onClick={() => scrollToHeading(heading.id)}
+                  className={`text-primary-200 hover:text-primary-50 transition-colors text-left w-full ${
+                    location.hash === `#${heading.id}` ? 'text-primary-50 font-medium' : ''
+                  }`}
+                >
+                  {heading.text}
+                </button>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
+
+TableOfContents.propTypes = {
+  headings: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  })).isRequired,
+};
+
+const ReadingTime = ({ content }) => {
+  const wordsPerMinute = 200;
+  const words = content.trim().split(/\s+/).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+
+  return (
+    <div className="flex items-center gap-2 text-sm text-primary-300">
+      <BookOpen size={16} />
+      <span>{minutes} min read</span>
+    </div>
+  );
+};
+
+ReadingTime.propTypes = {
+  content: PropTypes.string.isRequired,
+};
+
 export default function Reader() {
   const { id } = useParams();
   const post = blogPosts[id];
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const contentRef = useRef(null);
+  const [headings, setHeadings] = useState([]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      const headingElements = contentRef.current.querySelectorAll('h2');
+      const headingData = Array.from(headingElements).map((heading) => ({
+        id: heading.id,
+        text: heading.textContent,
+      }));
+      setHeadings(headingData);
+    }
+  }, [post.content]);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   if (!post) {
     return (
@@ -170,10 +276,7 @@ export default function Reader() {
                 <Calendar className="w-4 h-4" />
                 {post.date}
               </div>
-              <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
-                {post.readTime}
-              </div>
+              <ReadingTime content={post.content} />
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl text-primary-50 font-bold mb-6 leading-tight">
@@ -236,6 +339,7 @@ export default function Reader() {
                 alt={post.title}
                 className="w-full h-full object-cover"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary-900/50 to-transparent" />
             </div>
           </motion.div>
         </div>
@@ -246,13 +350,14 @@ export default function Reader() {
         <div className="container mx-auto px-4 text-primary-50 sm:px-6 lg:px-16">
           <div className="max-w-3xl mx-auto">
             <motion.div
+              ref={contentRef}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="prose prose-invert prose-lg max-w-none
                 prose-headings:font-semibold 
-                prose-h2:text-primary-50 prose-h2:mt-16 prose-h2:mb-8 prose-h2:text-3xl prose-h2:font-semibold
-                prose-h3:text-primary-50 prose-h3:mt-12 prose-h3:mb-6 prose-h3:text-2xl prose-h3:font-semibold
+                prose-h2:text-primary-50 prose-h2:mt-16 prose-h2:mb-8 prose-h2:text-3xl prose-h2:font-semibold prose-h2:scroll-mt-20
+                prose-h3:text-primary-50 prose-h3:mt-12 prose-h3:mb-6 prose-h3:text-2xl prose-h3:font-semibold prose-h3:scroll-mt-20
                 prose-p:text-primary-200 prose-p:leading-relaxed prose-p:mb-8 prose-p:text-lg
                 prose-ul:my-8 prose-ul:pl-6 prose-ul:space-y-4
                 prose-li:text-primary-200 prose-li:leading-relaxed prose-li:text-lg
@@ -268,37 +373,7 @@ export default function Reader() {
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
-            {/* Table of Contents */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-16 p-6 bg-primary-800/30 rounded-xl border border-primary-300/10"
-            >
-              <h3 className="text-xl font-semibold text-primary-50 mb-4">Table of Contents</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#benefits" className="text-primary-200 hover:text-primary-50 transition-colors">
-                    The Benefits of Robotics in Education
-                  </a>
-                </li>
-                <li>
-                  <a href="#trends" className="text-primary-200 hover:text-primary-50 transition-colors">
-                    Current Trends in Educational Robotics
-                  </a>
-                </li>
-                <li>
-                  <a href="#challenges" className="text-primary-200 hover:text-primary-50 transition-colors">
-                    Challenges and Solutions
-                  </a>
-                </li>
-                <li>
-                  <a href="#future" className="text-primary-200 hover:text-primary-50 transition-colors">
-                    Looking Forward
-                  </a>
-                </li>
-              </ul>
-            </motion.div>
+            <TableOfContents headings={headings} />
 
             {/* Author Card */}
             <motion.div
@@ -330,6 +405,10 @@ export default function Reader() {
                   <BookmarkPlus className="w-4 h-4" />
                   <span>{post.stats.bookmarks} bookmarks</span>
                 </button>
+                <button className="flex items-center gap-2 hover:text-primary-50 transition-colors">
+                  <Eye className="w-4 h-4" />
+                  <span>{post.stats.views} views</span>
+                </button>
               </div>
               <div className="flex items-center gap-6">
                 <button className="hover:text-primary-50 transition-colors">Share</button>
@@ -339,6 +418,21 @@ export default function Reader() {
           </div>
         </div>
       </section>
+
+      {/* Scroll to Top Button */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 p-3 bg-primary-800/80 backdrop-blur-sm rounded-full border border-primary-300/10 hover:bg-primary-800/90 transition-colors"
+          >
+            <ChevronUp className="w-6 h-6" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 } 
